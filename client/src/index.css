@@ -261,6 +261,23 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--champagne); out
 .reveal-delay-1.is-visible { animation-delay: 90ms; }
 .reveal-delay-2.is-visible { animation-delay: 160ms; }
 .reveal-delay-3.is-visible { animation-delay: 230ms; }
+.modal-backdrop { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 24px; background: rgba(40, 49, 41, 0.58); backdrop-filter: blur(8px); animation: modal-fade 180ms var(--ease-out) both; }
+.contact-modal { position: relative; width: min(100%, 590px); max-height: min(720px, calc(100vh - 48px)); overflow-y: auto; padding: clamp(28px, 5vw, 52px); background: var(--ivory); color: var(--graphite); box-shadow: 0 30px 80px rgba(23, 38, 28, 0.26); animation: modal-rise 280ms var(--ease-out) both; }
+.modal-close { position: absolute; top: 18px; right: 18px; display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--line); background: transparent; color: var(--olive); transition: background-color 180ms var(--ease-out), color 180ms var(--ease-out); }
+.modal-close:hover { background: var(--olive); color: var(--ivory); }
+.contact-modal h2 { max-width: 470px; margin: 16px 38px 0 0; color: var(--olive); font-size: clamp(2.5rem, 5vw, 4.2rem); }
+.modal-intro { max-width: 470px; margin: 20px 0 30px; color: var(--muted-foreground); font-size: 0.84rem; line-height: 1.8; }
+.contact-form { display: grid; gap: 18px; }
+.contact-form label { display: grid; gap: 8px; color: var(--olive); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.11em; text-transform: uppercase; }
+.contact-form input, .contact-form textarea { width: 100%; border: 1px solid var(--line); border-radius: 0; background: rgba(255,255,255,0.48); color: var(--graphite); font: inherit; font-size: 0.82rem; font-weight: 500; letter-spacing: 0; padding: 13px 14px; outline: none; resize: vertical; transition: border-color 180ms var(--ease-out), box-shadow 180ms var(--ease-out), background-color 180ms var(--ease-out); }
+.contact-form input::placeholder, .contact-form textarea::placeholder { color: #8b948c; }
+.contact-form input:focus, .contact-form textarea:focus { border-color: var(--olive); background: #fff; box-shadow: 0 0 0 3px rgba(49, 76, 59, 0.1); }
+.contact-form .primary-cta { justify-self: start; margin-top: 5px; border: 0; }
+.modal-success { display: grid; justify-items: start; }
+.modal-success-mark { display: grid; place-items: center; width: 52px; height: 52px; margin-bottom: 25px; border-radius: 50%; background: var(--olive); color: var(--champagne); }
+.modal-success .primary-cta { margin-top: 4px; }
+@keyframes modal-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modal-rise { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
 .whatsapp-float { position: fixed; right: 24px; bottom: 24px; z-index: 45; display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 18px; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; background: #287c4d; color: #fff; box-shadow: 0 16px 32px rgba(40, 92, 58, 0.25); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.06em; transition: transform 180ms var(--ease-out), background-color 180ms var(--ease-out), box-shadow 180ms var(--ease-out); }
 .whatsapp-float:hover { background: #1f693f; box-shadow: 0 20px 38px rgba(40, 92, 58, 0.34); transform: translateY(-4px); }
 .whatsapp-float:active { transform: scale(0.98); }
@@ -280,6 +297,9 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--champagne); out
 
 @media (max-width: 720px) {
   .whatsapp-float { right: 16px; bottom: 16px; min-height: 48px; padding: 0 15px; font-size: 0.64rem; }
+  .modal-backdrop { padding: 14px; }
+  .contact-modal { max-height: calc(100vh - 28px); padding: 30px 22px 24px; }
+  .contact-modal h2 { font-size: 2.7rem; }
   .container-editorial { width: min(100% - 36px, 1180px); }
   .header-inner { min-height: 72px; }
   .mobile-nav { top: 72px; }
@@ -338,6 +358,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--champagne); out
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal, .reveal.is-visible { opacity: 1; transform: none; animation: none !important; }
+  .modal-backdrop, .contact-modal { animation: none !important; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
 

@@ -1,5 +1,5 @@
 /* Editorial Orgânico — narrativa assimétrica, fotografia como autoridade silenciosa e CTAs humanos. */
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import {
   ArrowDownRight,
   ArrowRight,
@@ -20,8 +20,19 @@ const trainingImage = "/manus-storage/nathalia-training-portrait_e68cad58.jpg";
 const textureImage = "/manus-storage/nathalia-organic-texture_d4614687.png";
 const markImage = "/manus-storage/nathalia-mark_9ea8669e.png";
 const instagramUrl = "https://www.instagram.com/nathfonsecanutri/";
-// Sem número fornecido no briefing, o link abre o WhatsApp com mensagem pronta para escolha do contacto.
-const whatsappUrl = "https://api.whatsapp.com/send?text=Olá%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20atendimento%20nutricional%20da%20Nathália%20Fonseca.";
+const whatsappNumber = "5521981181479";
+const whatsappMessage = "Olá, Nathália! Gostaria de saber mais sobre o acompanhamento nutricional e os formatos de atendimento.";
+const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
+type TrackingData = Record<string, string>;
+declare global {
+  interface Window {
+    umami?: { track: (name: string, data?: TrackingData) => void };
+  }
+}
+function trackEvent(name: string, data?: TrackingData) {
+  window.umami?.track(name, data);
+}
 
 const services = [
   {
@@ -94,7 +105,7 @@ function Header() {
         <nav className="desktop-nav" aria-label="Navegação principal">
           {navItems.map(([label, id]) => <a className="nav-link" href={`#${id}`} key={id}>{label}</a>)}
         </nav>
-        <a className="header-cta" href="#agendamento">Agendar consulta <ArrowRight size={14} /></a>
+          <a className="header-cta" href="#agendamento" onClick={() => trackEvent("cta_click", { cta: "header_agendar_consulta" })}>Agendar consulta <ArrowRight size={14} /></a>
         <button className="menu-toggle" aria-expanded={menuOpen} aria-controls="mobile-navigation" aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -118,8 +129,8 @@ function Hero() {
           <h1 className="display">Sua alimentação pode <em>trabalhar</em> a favor dos seus objetivos.</h1>
           <p className="hero-lead">Estratégias nutricionais personalizadas para emagrecimento, reeducação alimentar, nutrição esportiva e performance — respeitando a sua rotina e as suas necessidades.</p>
           <div className="hero-actions">
-            <a className="primary-cta" href="#agendamento">Quero agendar a minha consulta <ArrowRight size={15} /></a>
-            <a className="secondary-cta" href="#sobre">Conhecer o trabalho <ArrowDownRight size={15} /></a>
+            <a className="primary-cta" href="#agendamento" onClick={() => trackEvent("cta_click", { cta: "hero_agendar_consulta" })}>Quero agendar a minha consulta <ArrowRight size={15} /></a>
+            <a className="secondary-cta" href="#sobre" onClick={() => trackEvent("cta_click", { cta: "hero_conhecer_trabalho" })}>Conhecer o trabalho <ArrowDownRight size={15} /></a>
           </div>
           <div className="hero-note"><span className="hero-note-dot" /> Atendimento online e presencial</div>
         </div>
@@ -148,7 +159,7 @@ function Identify() {
           <div className="eyebrow">Talvez se identifique</div>
           <h2 id="identify-title" className="display">Você não precisa de mais uma dieta.</h2>
           <p>Precisa de uma estratégia que faça sentido para você. Cada pessoa possui uma rotina, objetivos, preferências e necessidades diferentes.</p>
-          <a className="section-cta" href="#agendamento">Quero começar a minha transformação <ArrowRight size={15} /></a>
+          <a className="section-cta" href="#agendamento" onClick={() => trackEvent("cta_click", { cta: "identify_comecar_transformacao" })}>Quero começar a minha transformação <ArrowRight size={15} /></a>
         </div>
         <div className="identify-list reveal reveal-delay-1">
           {cards.map(([number, title, copy]) => <article className="identify-card" key={number}><span className="identify-card-number">{number}</span><h3>{title}</h3><p>{copy}</p></article>)}
@@ -222,7 +233,7 @@ function InstagramSection() {
   return (
     <section className="instagram" aria-labelledby="instagram-title">
       <div className="container-editorial instagram-grid">
-        <div className="instagram-copy reveal"><div className="eyebrow">Acompanhe mais conteúdos</div><h2 id="instagram-title" className="display">Nutrição para a vida real.</h2><p>Conteúdos sobre alimentação, treino, saúde, emagrecimento e performance também no Instagram.</p><a className="instagram-handle" href={instagramUrl} target="_blank" rel="noreferrer"><Instagram /> @nathfonsecanutri · 26,6 mil seguidores</a><div><a className="section-cta instagram-cta" href={instagramUrl} target="_blank" rel="noreferrer">Seguir no Instagram <ArrowRight size={15} /></a></div></div>
+        <div className="instagram-copy reveal"><div className="eyebrow">Acompanhe mais conteúdos</div><h2 id="instagram-title" className="display">Nutrição para a vida real.</h2><p>Conteúdos sobre alimentação, treino, saúde, emagrecimento e performance também no Instagram.</p><a className="instagram-handle" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_handle" })}><Instagram /> @nathfonsecanutri · 26,6 mil seguidores</a><div><a className="section-cta instagram-cta" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_follow" })}>Seguir no Instagram <ArrowRight size={15} /></a></div></div>
         <div className="post-grid reveal reveal-delay-2" aria-label="Espaço reservado para posts do Instagram">
           <div className="post-tile"><img src={trainingImage} alt="" /></div>
           <div className="post-tile"><img src={textureImage} alt="" /></div>
@@ -236,10 +247,59 @@ function InstagramSection() {
 
 function WhatsAppFloat() {
   return (
-    <a className="whatsapp-float" href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Contactar pelo WhatsApp">
+    <a className="whatsapp-float" href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Contactar pelo WhatsApp" onClick={() => trackEvent("whatsapp_click", { placement: "floating_button" })}>
       <MessageCircle size={22} strokeWidth={2.1} />
       <span>Falar no WhatsApp</span>
     </a>
+  );
+}
+
+function ContactModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") onClose(); };
+    document.addEventListener("keydown", onKeyDown);
+    document.body.style.overflow = "hidden";
+    return () => { document.removeEventListener("keydown", onKeyDown); document.body.style.overflow = ""; setSubmitted(false); };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const name = String(formData.get("name") || "").trim();
+    const email = String(formData.get("email") || "").trim();
+    const message = String(formData.get("message") || "").trim();
+    const personalizedMessage = `${whatsappMessage}\\n\\nNome: ${name}\\nEmail: ${email}\\nMensagem: ${message}`;
+    trackEvent("contact_form_submit", { form: "final_cta_contact" });
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(personalizedMessage)}`, "_blank", "noopener,noreferrer");
+    setSubmitted(true);
+  };
+
+  return (
+    <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
+      <section className="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+        <button className="modal-close" type="button" onClick={onClose} aria-label="Fechar formulário"><X size={19} /></button>
+        {!submitted ? (
+          <>
+            <div className="eyebrow">Vamos conversar</div>
+            <h2 id="contact-modal-title" className="display">O seu próximo passo começa com uma mensagem.</h2>
+            <p className="modal-intro">Preencha os seus dados. Ao enviar, a conversa será aberta no WhatsApp da Nathália com a sua mensagem pronta.</p>
+            <form className="contact-form" onSubmit={handleSubmit}>
+              <label>Nome<input name="name" type="text" autoComplete="name" placeholder="Como se chama?" required /></label>
+              <label>Email<input name="email" type="email" autoComplete="email" placeholder="seu@email.com" required /></label>
+              <label>Como posso ajudar?<textarea name="message" rows={3} placeholder="Conte brevemente o que procura." required /></label>
+              <button className="primary-cta" type="submit">Continuar no WhatsApp <ArrowRight size={15} /></button>
+            </form>
+          </>
+        ) : (
+          <div className="modal-success"><div className="modal-success-mark"><MessageCircle size={24} /></div><div className="eyebrow">Mensagem preparada</div><h2 className="display">A conversa continua no WhatsApp.</h2><p className="modal-intro">Se a nova janela não abriu, use o botão abaixo para retomar o contacto.</p><a className="primary-cta" href={whatsappUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_click", { placement: "contact_modal" })}>Abrir WhatsApp <ArrowRight size={15} /></a></div>
+        )}
+      </section>
+    </div>
   );
 }
 
@@ -258,11 +318,12 @@ function FAQ() {
 }
 
 function FinalCta() {
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <section id="agendamento" className="final-cta" aria-labelledby="final-cta-title">
       <div className="container-editorial final-cta-inner">
         <div className="reveal"><div className="eyebrow eyebrow-light">O seu próximo passo começa aqui</div><h2 id="final-cta-title" className="display">Comece a cuidar da sua alimentação com uma estratégia feita para você.</h2></div>
-        <div className="final-cta-copy reveal reveal-delay-2"><p>Agende o seu atendimento com Nathália Fonseca e dê o primeiro passo em direção aos seus objetivos.</p><a className="primary-cta light-cta" href={instagramUrl} target="_blank" rel="noreferrer">Agendar a minha consulta <ArrowRight size={15} /></a></div>
+        <div className="final-cta-copy reveal reveal-delay-2"><p>Agende o seu atendimento com Nathália Fonseca e dê o primeiro passo em direção aos seus objetivos.</p><button className="primary-cta light-cta" type="button" aria-haspopup="dialog" onClick={() => { trackEvent("cta_click", { cta: "final_agendar_consulta" }); setModalOpen(true); }}>Agendar a minha consulta <ArrowRight size={15} /></button></div><ContactModal open={modalOpen} onClose={() => setModalOpen(false)} />
       </div>
     </section>
   );
