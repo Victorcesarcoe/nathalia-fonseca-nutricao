@@ -10,3 +10,10 @@
 - [x] Configurar o WhatsApp com o número oficial e mensagem personalizada.
 - [x] Instrumentar cliques no WhatsApp e nos CTAs.
 - [x] Validar desktop/mobile e criar checkpoint.
+
+## Atualização do formulário
+
+- [x] Adicionar consentimento de privacidade obrigatório.
+- [x] Adicionar campo de assunto com opções de contacto.
+- [x] Mostrar toast de sucesso após o envio.
+- [x] Validar o fluxo e criar checkpoint.

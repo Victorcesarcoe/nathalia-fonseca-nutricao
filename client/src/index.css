@@ -269,9 +269,14 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--champagne); out
 .modal-intro { max-width: 470px; margin: 20px 0 30px; color: var(--muted-foreground); font-size: 0.84rem; line-height: 1.8; }
 .contact-form { display: grid; gap: 18px; }
 .contact-form label { display: grid; gap: 8px; color: var(--olive); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.11em; text-transform: uppercase; }
-.contact-form input, .contact-form textarea { width: 100%; border: 1px solid var(--line); border-radius: 0; background: rgba(255,255,255,0.48); color: var(--graphite); font: inherit; font-size: 0.82rem; font-weight: 500; letter-spacing: 0; padding: 13px 14px; outline: none; resize: vertical; transition: border-color 180ms var(--ease-out), box-shadow 180ms var(--ease-out), background-color 180ms var(--ease-out); }
+.contact-form input, .contact-form select, .contact-form textarea { width: 100%; border: 1px solid var(--line); border-radius: 0; background: rgba(255,255,255,0.48); color: var(--graphite); font: inherit; font-size: 0.82rem; font-weight: 500; letter-spacing: 0; padding: 13px 14px; outline: none; resize: vertical; transition: border-color 180ms var(--ease-out), box-shadow 180ms var(--ease-out), background-color 180ms var(--ease-out); }
+.contact-form select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--olive) 50%), linear-gradient(135deg, var(--olive) 50%, transparent 50%); background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%; background-repeat: no-repeat; background-size: 5px 5px, 5px 5px; padding-right: 36px; }
+.consent-label { display: flex !important; grid-template-columns: none; flex-direction: row; align-items: flex-start; gap: 10px !important; color: var(--muted-foreground) !important; font-size: 0.68rem !important; font-weight: 500 !important; letter-spacing: 0 !important; line-height: 1.55; text-transform: none !important; }
+.consent-checkbox { flex: 0 0 auto; width: 17px !important; height: 17px; margin-top: 1px; padding: 0 !important; accent-color: var(--olive); }
+.consent-label:focus-within { color: var(--olive) !important; }
+.toast-custom { font-family: 'Manrope', sans-serif; }
 .contact-form input::placeholder, .contact-form textarea::placeholder { color: #8b948c; }
-.contact-form input:focus, .contact-form textarea:focus { border-color: var(--olive); background: #fff; box-shadow: 0 0 0 3px rgba(49, 76, 59, 0.1); }
+.contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color: var(--olive); background: #fff; box-shadow: 0 0 0 3px rgba(49, 76, 59, 0.1); }
 .contact-form .primary-cta { justify-self: start; margin-top: 5px; border: 0; }
 .modal-success { display: grid; justify-items: start; }
 .modal-success-mark { display: grid; place-items: center; width: 52px; height: 52px; margin-bottom: 25px; border-radius: 50%; background: var(--olive); color: var(--champagne); }

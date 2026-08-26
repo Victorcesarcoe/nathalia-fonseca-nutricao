@@ -1,5 +1,6 @@
 /* Editorial Orgânico — narrativa assimétrica, fotografia como autoridade silenciosa e CTAs humanos. */
 import { FormEvent, useEffect, useState } from "react";
+import { toast } from "sonner";
 import {
   ArrowDownRight,
   ArrowRight,
@@ -272,9 +273,13 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
     const formData = new FormData(event.currentTarget);
     const name = String(formData.get("name") || "").trim();
     const email = String(formData.get("email") || "").trim();
+    const subject = String(formData.get("subject") || "").trim();
     const message = String(formData.get("message") || "").trim();
-    const personalizedMessage = `${whatsappMessage}\\n\\nNome: ${name}\\nEmail: ${email}\\nMensagem: ${message}`;
-    trackEvent("contact_form_submit", { form: "final_cta_contact" });
+    const consent = formData.get("consent");
+    if (!consent) return;
+    const personalizedMessage = `${whatsappMessage}\\n\\nAssunto: ${subject}\\nNome: ${name}\\nEmail: ${email}\\nMensagem: ${message}`;
+    trackEvent("contact_form_submit", { form: "final_cta_contact", subject });
+    toast.success("Mensagem preparada", { description: "A conversa foi aberta no WhatsApp para concluir o contacto." });
     window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(personalizedMessage)}`, "_blank", "noopener,noreferrer");
     setSubmitted(true);
   };
@@ -291,7 +296,9 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
             <form className="contact-form" onSubmit={handleSubmit}>
               <label>Nome<input name="name" type="text" autoComplete="name" placeholder="Como se chama?" required /></label>
               <label>Email<input name="email" type="email" autoComplete="email" placeholder="seu@email.com" required /></label>
+              <label>Assunto<select name="subject" defaultValue="" required><option value="" disabled>Escolha um assunto</option><option value="Consulta de nutrição">Consulta de nutrição</option><option value="Nutrição esportiva e performance">Nutrição esportiva e performance</option><option value="Reeducação alimentar">Reeducação alimentar</option><option value="Atendimento online ou presencial">Atendimento online ou presencial</option><option value="Outro assunto">Outro assunto</option></select></label>
               <label>Como posso ajudar?<textarea name="message" rows={3} placeholder="Conte brevemente o que procura." required /></label>
+              <label className="consent-label"><input className="consent-checkbox" name="consent" type="checkbox" required /><span>Concordo com o tratamento dos meus dados para receber resposta sobre este contacto.</span></label>
               <button className="primary-cta" type="submit">Continuar no WhatsApp <ArrowRight size={15} /></button>
             </form>
           </>
