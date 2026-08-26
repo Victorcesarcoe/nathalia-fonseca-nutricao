@@ -17,3 +17,9 @@
 - [x] Adicionar campo de assunto com opções de contacto.
 - [x] Mostrar toast de sucesso após o envio.
 - [x] Validar o fluxo e criar checkpoint.
+
+## Estado de envio
+
+- [x] Adicionar loading state ao botão do formulário.
+- [x] Bloquear submissões repetidas e validar a animação.
+- [x] Criar checkpoint da atualização.

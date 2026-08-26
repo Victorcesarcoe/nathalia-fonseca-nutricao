@@ -7,6 +7,7 @@ import {
   ChevronDown,
   Dumbbell,
   Instagram,
+  LoaderCircle,
   MessageCircle,
   Menu,
   MoveUpRight,
@@ -257,6 +258,7 @@ function WhatsAppFloat() {
 
 function ContactModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (!open) return;
@@ -278,10 +280,14 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
     const consent = formData.get("consent");
     if (!consent) return;
     const personalizedMessage = `${whatsappMessage}\\n\\nAssunto: ${subject}\\nNome: ${name}\\nEmail: ${email}\\nMensagem: ${message}`;
-    trackEvent("contact_form_submit", { form: "final_cta_contact", subject });
-    toast.success("Mensagem preparada", { description: "A conversa foi aberta no WhatsApp para concluir o contacto." });
-    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(personalizedMessage)}`, "_blank", "noopener,noreferrer");
-    setSubmitted(true);
+    setIsSubmitting(true);
+    window.setTimeout(() => {
+      trackEvent("contact_form_submit", { form: "final_cta_contact", subject });
+      toast.success("Mensagem preparada", { description: "A conversa foi aberta no WhatsApp para concluir o contacto." });
+      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(personalizedMessage)}`, "_blank", "noopener,noreferrer");
+      setSubmitted(true);
+      setIsSubmitting(false);
+    }, 650);
   };
 
   return (
@@ -299,7 +305,7 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
               <label>Assunto<select name="subject" defaultValue="" required><option value="" disabled>Escolha um assunto</option><option value="Consulta de nutrição">Consulta de nutrição</option><option value="Nutrição esportiva e performance">Nutrição esportiva e performance</option><option value="Reeducação alimentar">Reeducação alimentar</option><option value="Atendimento online ou presencial">Atendimento online ou presencial</option><option value="Outro assunto">Outro assunto</option></select></label>
               <label>Como posso ajudar?<textarea name="message" rows={3} placeholder="Conte brevemente o que procura." required /></label>
               <label className="consent-label"><input className="consent-checkbox" name="consent" type="checkbox" required /><span>Concordo com o tratamento dos meus dados para receber resposta sobre este contacto.</span></label>
-              <button className="primary-cta" type="submit">Continuar no WhatsApp <ArrowRight size={15} /></button>
+              <button className="primary-cta" type="submit" disabled={isSubmitting} aria-busy={isSubmitting}>{isSubmitting ? <><LoaderCircle className="button-spinner" size={16} /> A preparar o WhatsApp…</> : <>Continuar no WhatsApp <ArrowRight size={15} /></>}</button>
             </form>
           </>
         ) : (

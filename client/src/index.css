@@ -278,6 +278,9 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--champagne); out
 .contact-form input::placeholder, .contact-form textarea::placeholder { color: #8b948c; }
 .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color: var(--olive); background: #fff; box-shadow: 0 0 0 3px rgba(49, 76, 59, 0.1); }
 .contact-form .primary-cta { justify-self: start; margin-top: 5px; border: 0; }
+.contact-form .primary-cta:disabled { cursor: wait; opacity: 0.78; transform: none; box-shadow: none; }
+.button-spinner { animation: spin 800ms linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
 .modal-success { display: grid; justify-items: start; }
 .modal-success-mark { display: grid; place-items: center; width: 52px; height: 52px; margin-bottom: 25px; border-radius: 50%; background: var(--olive); color: var(--champagne); }
 .modal-success .primary-cta { margin-top: 4px; }
@@ -364,6 +367,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--champagne); out
   html { scroll-behavior: auto; }
   .reveal, .reveal.is-visible { opacity: 1; transform: none; animation: none !important; }
   .modal-backdrop, .contact-modal { animation: none !important; }
+  .button-spinner { animation: none !important; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
 
