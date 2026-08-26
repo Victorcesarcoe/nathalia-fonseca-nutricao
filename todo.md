@@ -23,3 +23,11 @@
 - [x] Adicionar loading state ao botão do formulário.
 - [x] Bloquear submissões repetidas e validar a animação.
 - [x] Criar checkpoint da atualização.
+
+## Resiliência do formulário
+
+- [x] Persistir automaticamente os campos do formulário no local storage.
+- [x] Restaurar dados guardados quando o modal for reaberto.
+- [x] Sugerir mensagens contextuais com base no assunto escolhido.
+- [x] Mostrar erro visual e toast se o WhatsApp não abrir.
+- [x] Validar a atualização e criar checkpoint.

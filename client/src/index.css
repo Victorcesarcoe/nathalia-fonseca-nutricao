@@ -274,6 +274,8 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--champagne); out
 .consent-label { display: flex !important; grid-template-columns: none; flex-direction: row; align-items: flex-start; gap: 10px !important; color: var(--muted-foreground) !important; font-size: 0.68rem !important; font-weight: 500 !important; letter-spacing: 0 !important; line-height: 1.55; text-transform: none !important; }
 .consent-checkbox { flex: 0 0 auto; width: 17px !important; height: 17px; margin-top: 1px; padding: 0 !important; accent-color: var(--olive); }
 .consent-label:focus-within { color: var(--olive) !important; }
+.form-error { display: grid; gap: 4px; padding: 12px 14px; border-left: 2px solid #b85d4f; background: rgba(184, 93, 79, 0.08); color: #7c3f36; font-size: 0.72rem; line-height: 1.55; }
+.form-error strong { font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; }
 .toast-custom { font-family: 'Manrope', sans-serif; }
 .contact-form input::placeholder, .contact-form textarea::placeholder { color: #8b948c; }
 .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color: var(--olive); background: #fff; box-shadow: 0 0 0 3px rgba(49, 76, 59, 0.1); }

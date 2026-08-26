@@ -25,6 +25,14 @@ const instagramUrl = "https://www.instagram.com/nathfonsecanutri/";
 const whatsappNumber = "5521981181479";
 const whatsappMessage = "Olá, Nathália! Gostaria de saber mais sobre o acompanhamento nutricional e os formatos de atendimento.";
 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+const contactDraftKey = "nathalia-contact-draft";
+const messageSuggestions: Record<string, string> = {
+  "Consulta de nutrição": "Gostaria de saber como funciona a consulta de nutrição.",
+  "Nutrição esportiva e performance": "Gostaria de falar sobre nutrição esportiva e performance.",
+  "Reeducação alimentar": "Gostaria de construir uma estratégia de reeducação alimentar.",
+  "Atendimento online ou presencial": "Gostaria de saber mais sobre os formatos de atendimento.",
+  "Outro assunto": "Gostaria de conversar sobre o meu objectivo e perceber como pode ajudar.",
+};
 
 type TrackingData = Record<string, string>;
 declare global {
@@ -259,16 +267,29 @@ function WhatsAppFloat() {
 function ContactModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [redirectError, setRedirectError] = useState("");
+  const [draft, setDraft] = useState({ name: "", email: "", subject: "", message: "", consent: false });
 
   useEffect(() => {
     if (!open) return;
     const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") onClose(); };
+    const savedDraft = window.localStorage.getItem(contactDraftKey);
+    if (savedDraft) {
+      try { setDraft({ ...draft, ...JSON.parse(savedDraft) }); } catch { window.localStorage.removeItem(contactDraftKey); }
+    }
+    setRedirectError("");
     document.addEventListener("keydown", onKeyDown);
     document.body.style.overflow = "hidden";
-    return () => { document.removeEventListener("keydown", onKeyDown); document.body.style.overflow = ""; setSubmitted(false); };
+    return () => { document.removeEventListener("keydown", onKeyDown); document.body.style.overflow = ""; setSubmitted(false); setIsSubmitting(false); };
   }, [open, onClose]);
 
   if (!open) return null;
+
+  const updateDraft = (field: keyof typeof draft, value: string | boolean) => {
+    const nextDraft = { ...draft, [field]: value };
+    setDraft(nextDraft);
+    window.localStorage.setItem(contactDraftKey, JSON.stringify(nextDraft));
+  };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -279,14 +300,24 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
     const message = String(formData.get("message") || "").trim();
     const consent = formData.get("consent");
     if (!consent) return;
+    setRedirectError("");
     const personalizedMessage = `${whatsappMessage}\\n\\nAssunto: ${subject}\\nNome: ${name}\\nEmail: ${email}\\nMensagem: ${message}`;
     setIsSubmitting(true);
     window.setTimeout(() => {
       trackEvent("contact_form_submit", { form: "final_cta_contact", subject });
-      toast.success("Mensagem preparada", { description: "A conversa foi aberta no WhatsApp para concluir o contacto." });
-      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(personalizedMessage)}`, "_blank", "noopener,noreferrer");
-      setSubmitted(true);
-      setIsSubmitting(false);
+      try {
+        const whatsappWindow = window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(personalizedMessage)}`, "_blank", "noopener,noreferrer");
+        if (!whatsappWindow) throw new Error("popup-blocked");
+        toast.success("Mensagem preparada", { description: "A conversa foi aberta no WhatsApp para concluir o contacto." });
+        window.localStorage.removeItem(contactDraftKey);
+        setSubmitted(true);
+      } catch {
+        const errorMessage = "Não foi possível abrir o WhatsApp. Verifique se o navegador bloqueou a nova janela e tente novamente.";
+        setRedirectError(errorMessage);
+        toast.error("Não foi possível abrir o WhatsApp", { description: "Permita pop-ups para concluir o contacto." });
+      } finally {
+        setIsSubmitting(false);
+      }
     }, 650);
   };
 
@@ -300,11 +331,12 @@ function ContactModal({ open, onClose }: { open: boolean; onClose: () => void })
             <h2 id="contact-modal-title" className="display">O seu próximo passo começa com uma mensagem.</h2>
             <p className="modal-intro">Preencha os seus dados. Ao enviar, a conversa será aberta no WhatsApp da Nathália com a sua mensagem pronta.</p>
             <form className="contact-form" onSubmit={handleSubmit}>
-              <label>Nome<input name="name" type="text" autoComplete="name" placeholder="Como se chama?" required /></label>
-              <label>Email<input name="email" type="email" autoComplete="email" placeholder="seu@email.com" required /></label>
-              <label>Assunto<select name="subject" defaultValue="" required><option value="" disabled>Escolha um assunto</option><option value="Consulta de nutrição">Consulta de nutrição</option><option value="Nutrição esportiva e performance">Nutrição esportiva e performance</option><option value="Reeducação alimentar">Reeducação alimentar</option><option value="Atendimento online ou presencial">Atendimento online ou presencial</option><option value="Outro assunto">Outro assunto</option></select></label>
-              <label>Como posso ajudar?<textarea name="message" rows={3} placeholder="Conte brevemente o que procura." required /></label>
-              <label className="consent-label"><input className="consent-checkbox" name="consent" type="checkbox" required /><span>Concordo com o tratamento dos meus dados para receber resposta sobre este contacto.</span></label>
+              <label>Nome<input name="name" type="text" autoComplete="name" placeholder="Como se chama?" value={draft.name} onChange={(event) => updateDraft("name", event.target.value)} required /></label>
+              <label>Email<input name="email" type="email" autoComplete="email" placeholder="seu@email.com" value={draft.email} onChange={(event) => updateDraft("email", event.target.value)} required /></label>
+              <label>Assunto<select name="subject" value={draft.subject} onChange={(event) => { const subject = event.target.value; const suggestion = messageSuggestions[subject] || ""; const shouldSuggest = !draft.message || Object.values(messageSuggestions).includes(draft.message); updateDraft("subject", subject); if (shouldSuggest) updateDraft("message", suggestion); }} required><option value="" disabled>Escolha um assunto</option><option value="Consulta de nutrição">Consulta de nutrição</option><option value="Nutrição esportiva e performance">Nutrição esportiva e performance</option><option value="Reeducação alimentar">Reeducação alimentar</option><option value="Atendimento online ou presencial">Atendimento online ou presencial</option><option value="Outro assunto">Outro assunto</option></select></label>
+              <label>Como posso ajudar?<textarea name="message" rows={3} placeholder="Conte brevemente o que procura." value={draft.message} onChange={(event) => updateDraft("message", event.target.value)} required /></label>
+              <label className="consent-label"><input className="consent-checkbox" name="consent" type="checkbox" checked={draft.consent} onChange={(event) => updateDraft("consent", event.target.checked)} required /><span>Concordo com o tratamento dos meus dados para receber resposta sobre este contacto.</span></label>
+              {redirectError && <div className="form-error" role="alert"><strong>O WhatsApp não abriu.</strong><span>{redirectError}</span></div>}
               <button className="primary-cta" type="submit" disabled={isSubmitting} aria-busy={isSubmitting}>{isSubmitting ? <><LoaderCircle className="button-spinner" size={16} /> A preparar o WhatsApp…</> : <>Continuar no WhatsApp <ArrowRight size={15} /></>}</button>
             </form>
           </>
