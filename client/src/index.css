@@ -65,7 +65,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 body {
   margin: 0;
   min-width: 320px;
@@ -256,10 +256,14 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--champagne); out
 .footer-instagram:hover { color: var(--champagne); }
 .footer-instagram svg { width: 15px; }
 
-.reveal { animation: rise-in 700ms var(--ease-out) both; }
-.reveal-delay-1 { animation-delay: 90ms; }
-.reveal-delay-2 { animation-delay: 160ms; }
-.reveal-delay-3 { animation-delay: 230ms; }
+.reveal { opacity: 0; transform: translateY(16px); }
+.reveal.is-visible { animation: rise-in 700ms var(--ease-out) both; }
+.reveal-delay-1.is-visible { animation-delay: 90ms; }
+.reveal-delay-2.is-visible { animation-delay: 160ms; }
+.reveal-delay-3.is-visible { animation-delay: 230ms; }
+.whatsapp-float { position: fixed; right: 24px; bottom: 24px; z-index: 45; display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 18px; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; background: #287c4d; color: #fff; box-shadow: 0 16px 32px rgba(40, 92, 58, 0.25); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.06em; transition: transform 180ms var(--ease-out), background-color 180ms var(--ease-out), box-shadow 180ms var(--ease-out); }
+.whatsapp-float:hover { background: #1f693f; box-shadow: 0 20px 38px rgba(40, 92, 58, 0.34); transform: translateY(-4px); }
+.whatsapp-float:active { transform: scale(0.98); }
 @keyframes rise-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 960px) {
@@ -275,6 +279,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--champagne); out
 }
 
 @media (max-width: 720px) {
+  .whatsapp-float { right: 16px; bottom: 16px; min-height: 48px; padding: 0 15px; font-size: 0.64rem; }
   .container-editorial { width: min(100% - 36px, 1180px); }
   .header-inner { min-height: 72px; }
   .mobile-nav { top: 72px; }
@@ -332,6 +337,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--champagne); out
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .reveal, .reveal.is-visible { opacity: 1; transform: none; animation: none !important; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
 

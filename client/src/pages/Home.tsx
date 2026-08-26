@@ -6,6 +6,7 @@ import {
   ChevronDown,
   Dumbbell,
   Instagram,
+  MessageCircle,
   Menu,
   MoveUpRight,
   Sparkles,
@@ -19,6 +20,8 @@ const trainingImage = "/manus-storage/nathalia-training-portrait_e68cad58.jpg";
 const textureImage = "/manus-storage/nathalia-organic-texture_d4614687.png";
 const markImage = "/manus-storage/nathalia-mark_9ea8669e.png";
 const instagramUrl = "https://www.instagram.com/nathfonsecanutri/";
+// Sem número fornecido no briefing, o link abre o WhatsApp com mensagem pronta para escolha do contacto.
+const whatsappUrl = "https://api.whatsapp.com/send?text=Olá%2C%20gostaria%20de%20saber%20mais%20sobre%20o%20atendimento%20nutricional%20da%20Nathália%20Fonseca.";
 
 const services = [
   {
@@ -231,6 +234,15 @@ function InstagramSection() {
   );
 }
 
+function WhatsAppFloat() {
+  return (
+    <a className="whatsapp-float" href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Contactar pelo WhatsApp">
+      <MessageCircle size={22} strokeWidth={2.1} />
+      <span>Falar no WhatsApp</span>
+    </a>
+  );
+}
+
 function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   return (
@@ -257,5 +269,23 @@ function FinalCta() {
 }
 
 export default function Home() {
-  return <div className="page-shell"><Header /><main><Hero /><div className="marquee-band" aria-hidden="true"><div className="marquee-track">{["Nutrição personalizada", "Performance possível", "Vida real", "Nutrição personalizada"].map((item, index) => <span className="marquee-item" key={`${item}-${index}`}>{item}</span>)}</div></div><Identify /><Services /><About /><Process /><Testimonials /><InstagramSection /><FAQ /><FinalCta /></main><footer className="site-footer"><div className="container-editorial footer-inner"><p>© {new Date().getFullYear()} Nathália Fonseca · Nutrição &amp; Performance</p><a className="footer-instagram" href={instagramUrl} target="_blank" rel="noreferrer"><Instagram size={15} /> @nathfonsecanutri</a></div></footer></div>;
+  useEffect(() => {
+    const elements = document.querySelectorAll<HTMLElement>(".reveal");
+    if (!("IntersectionObserver" in window)) {
+      elements.forEach((element) => element.classList.add("is-visible"));
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -32px 0px" });
+    elements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, []);
+
+  return <div className="page-shell"><Header /><main><Hero /><div className="marquee-band" aria-hidden="true"><div className="marquee-track">{["Nutrição personalizada", "Performance possível", "Vida real", "Nutrição personalizada"].map((item, index) => <span className="marquee-item" key={`${item}-${index}`}>{item}</span>)}</div></div><Identify /><Services /><About /><Process /><Testimonials /><InstagramSection /><FAQ /><FinalCta /></main><WhatsAppFloat /><footer className="site-footer"><div className="container-editorial footer-inner"><p>© {new Date().getFullYear()} Nathália Fonseca · Nutrição &amp; Performance</p><a className="footer-instagram" href={instagramUrl} target="_blank" rel="noreferrer"><Instagram size={15} /> @nathfonsecanutri</a></div></footer></div>;
 }
