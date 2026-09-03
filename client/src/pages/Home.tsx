@@ -1,5 +1,5 @@
 /* Editorial Orgânico — narrativa assimétrica, fotografia como autoridade silenciosa e CTAs humanos. */
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import {
   ArrowDownRight,
@@ -240,8 +240,47 @@ function Evolution() {
   const [activeCase, setActiveCase] = useState(0);
   const [position, setPosition] = useState(50);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [isDemoActive, setIsDemoActive] = useState(false);
+  const comparisonRef = useRef<HTMLDivElement>(null);
+  const demoStoppedRef = useRef(false);
+
+  useEffect(() => {
+    const comparison = comparisonRef.current;
+    if (!comparison || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !demoStoppedRef.current) {
+        setIsDemoActive(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.45 });
+    observer.observe(comparison);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isDemoActive || demoStoppedRef.current) return;
+    let frame = 0;
+    const startedAt = performance.now();
+    const duration = 2200;
+    const animate = (now: number) => {
+      const progress = Math.min(1, (now - startedAt) / duration);
+      const eased = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+      const wave = Math.sin(eased * Math.PI * 2);
+      setPosition(50 + wave * 24);
+      if (progress < 1 && !demoStoppedRef.current) frame = requestAnimationFrame(animate);
+      else { setPosition(50); setIsDemoActive(false); }
+    };
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+  }, [isDemoActive]);
+
+  const stopDemo = () => {
+    demoStoppedRef.current = true;
+    setIsDemoActive(false);
+  };
 
   const updatePosition = (clientX: number, element: HTMLElement) => {
+    stopDemo();
     const bounds = element.getBoundingClientRect();
     const nextPosition = Math.min(100, Math.max(0, ((clientX - bounds.left) / bounds.width) * 100));
     setPosition(nextPosition);
@@ -249,7 +288,7 @@ function Evolution() {
   };
 
   const currentCase = evolutionCases[activeCase];
-  const goToCase = (nextCase: number) => { setActiveCase((nextCase + evolutionCases.length) % evolutionCases.length); setPosition(50); setHasInteracted(false); };
+  const goToCase = (nextCase: number) => { stopDemo(); setActiveCase((nextCase + evolutionCases.length) % evolutionCases.length); setPosition(50); setHasInteracted(false); };
 
   return (
     <section id="evolucao" className="evolution" aria-labelledby="evolution-title">
@@ -261,12 +300,12 @@ function Evolution() {
         <div className="evolution-case reveal reveal-delay-1">
           <div className="evolution-case-meta"><span className="case-counter">0{activeCase + 1} <i>/ 0{evolutionCases.length}</i></span><span className="case-caption">Imagens fornecidas para apresentação de evolução · confirmar autorização antes de publicar</span></div>
           <div className="comparison-shell">
-            <div className="comparison" onPointerDown={(event) => { event.currentTarget.setPointerCapture(event.pointerId); updatePosition(event.clientX, event.currentTarget); }} onPointerMove={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) updatePosition(event.clientX, event.currentTarget); }} onPointerUp={(event) => event.currentTarget.releasePointerCapture(event.pointerId)} onPointerCancel={(event) => event.currentTarget.releasePointerCapture(event.pointerId)}>
+            <div ref={comparisonRef} className={`comparison ${isDemoActive ? "is-demo-active" : ""}`} onPointerDown={(event) => { stopDemo(); event.currentTarget.setPointerCapture(event.pointerId); updatePosition(event.clientX, event.currentTarget); }} onPointerMove={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) updatePosition(event.clientX, event.currentTarget); }} onPointerUp={(event) => event.currentTarget.releasePointerCapture(event.pointerId)} onPointerCancel={(event) => event.currentTarget.releasePointerCapture(event.pointerId)}>
               <img className="comparison-image comparison-after" src={currentCase.after} alt={`Evolução do caso ${activeCase + 1}, depois`} />
               <img className="comparison-image comparison-before-image" src={currentCase.before} style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }} alt={`Evolução do caso ${activeCase + 1}, antes`} />
               <span className="comparison-label comparison-label-before">Antes</span><span className="comparison-label comparison-label-after">Depois</span>
               <div className="comparison-divider" style={{ left: `${position}%` }} aria-hidden="true"><span className="comparison-handle"><ArrowLeft size={13} /><ArrowRight size={13} /></span></div>
-              <input className="comparison-range" type="range" min="0" max="100" value={position} aria-label="Arraste para comparar antes e depois" onChange={(event) => { setPosition(Number(event.target.value)); setHasInteracted(true); }} />
+              <input className="comparison-range" type="range" min="0" max="100" value={position} aria-label="Arraste para comparar antes e depois" onPointerDown={stopDemo} onChange={(event) => { stopDemo(); setPosition(Number(event.target.value)); setHasInteracted(true); }} />
             </div>
           </div>
           <div className="comparison-footer"><span className={hasInteracted ? "comparison-hint is-hidden" : "comparison-hint"}>Arraste para comparar <ArrowRight size={14} /></span><span className="case-detail">Evolução individual · objectivo e descrição a inserir pela profissional</span></div>

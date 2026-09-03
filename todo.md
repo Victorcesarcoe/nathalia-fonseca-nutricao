@@ -39,3 +39,10 @@
 - [x] Implementar comparação antes/depois com slider mouse e touch.
 - [x] Adicionar navegação, indicadores, labels e CTA para WhatsApp.
 - [x] Validar desktop/mobile e criar checkpoint.
+
+## Animação automática do comparador
+
+- [x] Animar suavemente o divisor quando a secção entra no viewport.
+- [x] Parar a demonstração ao primeiro controlo manual.
+- [x] Desactivar a animação com prefers-reduced-motion e validar desktop/mobile.
+- [x] Criar checkpoint da atualização.
