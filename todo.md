@@ -46,3 +46,10 @@
 - [x] Parar a demonstração ao primeiro controlo manual.
 - [x] Desactivar a animação com prefers-reduced-motion e validar desktop/mobile.
 - [x] Criar checkpoint da atualização.
+
+## Verificação da edição da imagem hero
+
+- [x] Confirmar a referência actual do hero em Home.tsx.
+- [x] Verificar se existe um asset local fornecido para substituir a imagem.
+- [x] Não guardar caminho file:/// local na aplicação publicada.
+- [x] Validar a aplicação e criar checkpoint apenas após resolver a referência.
