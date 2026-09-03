@@ -31,3 +31,11 @@
 - [x] Sugerir mensagens contextuais com base no assunto escolhido.
 - [x] Mostrar erro visual e toast se o WhatsApp não abrir.
 - [x] Validar a atualização e criar checkpoint.
+
+## Secção Evolução
+
+- [x] Copiar e alojar as três imagens reais fornecidas.
+- [x] Criar a secção “Evolução” com galeria de casos individuais.
+- [x] Implementar comparação antes/depois com slider mouse e touch.
+- [x] Adicionar navegação, indicadores, labels e CTA para WhatsApp.
+- [x] Validar desktop/mobile e criar checkpoint.

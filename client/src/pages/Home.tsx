@@ -3,8 +3,11 @@ import { FormEvent, useEffect, useState } from "react";
 import { toast } from "sonner";
 import {
   ArrowDownRight,
+  ArrowLeft,
   ArrowRight,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Dumbbell,
   Instagram,
   LoaderCircle,
@@ -26,6 +29,12 @@ const whatsappNumber = "5521981181479";
 const whatsappMessage = "Olá, Nathália! Gostaria de saber mais sobre o acompanhamento nutricional e os formatos de atendimento.";
 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 const contactDraftKey = "nathalia-contact-draft";
+const evolutionCases = [
+  { before: "/manus-storage/caso-1-antes_54f2dfa5.jpg", after: "/manus-storage/caso-1-depois_9f40bf20.jpg" },
+  { before: "/manus-storage/caso-2-antes_ecc7f5d3.jpg", after: "/manus-storage/caso-2-depois_5b953ccf.jpg" },
+  { before: "/manus-storage/caso-3-antes_72e1b988.jpg", after: "/manus-storage/caso-3-depois_414c21bb.jpg" },
+];
+
 const messageSuggestions: Record<string, string> = {
   "Consulta de nutrição": "Gostaria de saber como funciona a consulta de nutrição.",
   "Nutrição esportiva e performance": "Gostaria de falar sobre nutrição esportiva e performance.",
@@ -98,6 +107,7 @@ function Header() {
     ["Início", "inicio"],
     ["Sobre", "sobre"],
     ["Atuação", "atuacao"],
+    ["Evolução", "evolucao"],
     ["Como funciona", "como-funciona"],
     ["FAQ", "faq"],
   ];
@@ -221,6 +231,48 @@ function Process() {
         <div className="process-steps">
           {steps.map(([number, title, copy], index) => <article className={`process-step reveal reveal-delay-${Math.min(index + 1, 3)}`} key={number}><div className="process-marker">{number}</div><h3>{title}</h3><p>{copy}</p></article>)}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function Evolution() {
+  const [activeCase, setActiveCase] = useState(0);
+  const [position, setPosition] = useState(50);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
+  const updatePosition = (clientX: number, element: HTMLElement) => {
+    const bounds = element.getBoundingClientRect();
+    const nextPosition = Math.min(100, Math.max(0, ((clientX - bounds.left) / bounds.width) * 100));
+    setPosition(nextPosition);
+    setHasInteracted(true);
+  };
+
+  const currentCase = evolutionCases[activeCase];
+  const goToCase = (nextCase: number) => { setActiveCase((nextCase + evolutionCases.length) % evolutionCases.length); setPosition(50); setHasInteracted(false); };
+
+  return (
+    <section id="evolucao" className="evolution" aria-labelledby="evolution-title">
+      <div className="container-editorial">
+        <div className="evolution-intro reveal">
+          <div><div className="eyebrow">Evolução</div><h2 id="evolution-title" className="display">Cada jornada começa com um primeiro passo.</h2></div>
+          <div className="evolution-intro-side"><strong>Evolução não é sobre perfeição.<br />É sobre processo.</strong><p>Resultados são individuais e acontecem ao longo de um processo. Aqui, alguns exemplos de evoluções compartilhadas por pacientes, sempre respeitando as suas jornadas e objetivos.</p></div>
+        </div>
+        <div className="evolution-case reveal reveal-delay-1">
+          <div className="evolution-case-meta"><span className="case-counter">0{activeCase + 1} <i>/ 0{evolutionCases.length}</i></span><span className="case-caption">Imagens fornecidas para apresentação de evolução · confirmar autorização antes de publicar</span></div>
+          <div className="comparison-shell">
+            <div className="comparison" onPointerDown={(event) => { event.currentTarget.setPointerCapture(event.pointerId); updatePosition(event.clientX, event.currentTarget); }} onPointerMove={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) updatePosition(event.clientX, event.currentTarget); }} onPointerUp={(event) => event.currentTarget.releasePointerCapture(event.pointerId)} onPointerCancel={(event) => event.currentTarget.releasePointerCapture(event.pointerId)}>
+              <img className="comparison-image comparison-after" src={currentCase.after} alt={`Evolução do caso ${activeCase + 1}, depois`} />
+              <img className="comparison-image comparison-before-image" src={currentCase.before} style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }} alt={`Evolução do caso ${activeCase + 1}, antes`} />
+              <span className="comparison-label comparison-label-before">Antes</span><span className="comparison-label comparison-label-after">Depois</span>
+              <div className="comparison-divider" style={{ left: `${position}%` }} aria-hidden="true"><span className="comparison-handle"><ArrowLeft size={13} /><ArrowRight size={13} /></span></div>
+              <input className="comparison-range" type="range" min="0" max="100" value={position} aria-label="Arraste para comparar antes e depois" onChange={(event) => { setPosition(Number(event.target.value)); setHasInteracted(true); }} />
+            </div>
+          </div>
+          <div className="comparison-footer"><span className={hasInteracted ? "comparison-hint is-hidden" : "comparison-hint"}>Arraste para comparar <ArrowRight size={14} /></span><span className="case-detail">Evolução individual · objectivo e descrição a inserir pela profissional</span></div>
+          <div className="evolution-controls"><button type="button" className="gallery-arrow" onClick={() => goToCase(activeCase - 1)} aria-label="Caso anterior"><ChevronLeft size={18} /></button><div className="gallery-dots" role="tablist" aria-label="Seleccionar caso de evolução">{evolutionCases.map((_, index) => <button type="button" role="tab" aria-selected={activeCase === index} className={`gallery-dot ${activeCase === index ? "is-active" : ""}`} onClick={() => goToCase(index)} aria-label={`Ver caso ${index + 1}`} key={index} />)}</div><button type="button" className="gallery-arrow" onClick={() => goToCase(activeCase + 1)} aria-label="Próximo caso"><ChevronRight size={18} /></button></div>
+        </div>
+        <div className="evolution-cta reveal reveal-delay-2"><div><h3>Quer começar a construir a sua própria evolução?</h3><p>O primeiro passo é entender onde você está e definir para onde quer chegar.</p></div><a className="section-cta" href={whatsappUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "evolution_whatsapp" })}>Quero agendar a minha consulta <ArrowRight size={15} /></a></div>
       </div>
     </section>
   );
@@ -393,5 +445,5 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  return <div className="page-shell"><Header /><main><Hero /><div className="marquee-band" aria-hidden="true"><div className="marquee-track">{["Nutrição personalizada", "Performance possível", "Vida real", "Nutrição personalizada"].map((item, index) => <span className="marquee-item" key={`${item}-${index}`}>{item}</span>)}</div></div><Identify /><Services /><About /><Process /><Testimonials /><InstagramSection /><FAQ /><FinalCta /></main><WhatsAppFloat /><footer className="site-footer"><div className="container-editorial footer-inner"><p>© {new Date().getFullYear()} Nathália Fonseca · Nutrição &amp; Performance</p><a className="footer-instagram" href={instagramUrl} target="_blank" rel="noreferrer"><Instagram size={15} /> @nathfonsecanutri</a></div></footer></div>;
+  return <div className="page-shell"><Header /><main><Hero /><div className="marquee-band" aria-hidden="true"><div className="marquee-track">{["Nutrição personalizada", "Performance possível", "Vida real", "Nutrição personalizada"].map((item, index) => <span className="marquee-item" key={`${item}-${index}`}>{item}</span>)}</div></div><Identify /><Services /><About /><Process /><Evolution /><Testimonials /><InstagramSection /><FAQ /><FinalCta /></main><WhatsAppFloat /><footer className="site-footer"><div className="container-editorial footer-inner"><p>© {new Date().getFullYear()} Nathália Fonseca · Nutrição &amp; Performance</p><a className="footer-instagram" href={instagramUrl} target="_blank" rel="noreferrer"><Instagram size={15} /> @nathfonsecanutri</a></div></footer></div>;
 }
