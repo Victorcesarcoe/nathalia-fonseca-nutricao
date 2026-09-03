@@ -30,9 +30,10 @@ const whatsappMessage = "Olá, Nathália! Gostaria de saber mais sobre o acompan
 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 const contactDraftKey = "nathalia-contact-draft";
 const evolutionCases = [
-  { before: "/manus-storage/caso-1-antes_54f2dfa5.jpg", after: "/manus-storage/caso-1-depois_9f40bf20.jpg" },
-  { before: "/manus-storage/caso-2-antes_ecc7f5d3.jpg", after: "/manus-storage/caso-2-depois_5b953ccf.jpg" },
-  { before: "/manus-storage/caso-3-antes_72e1b988.jpg", after: "/manus-storage/caso-3-depois_414c21bb.jpg" },
+  { before: "/manus-storage/caso-01-antes_8bd949ef.jpeg", after: "/manus-storage/caso-01-depois_f2d90a9c.jpeg" },
+  { before: "/manus-storage/caso-02-antes_48d2fd26.jpeg", after: "/manus-storage/caso-02-depois_227ef7fa.jpeg" },
+  { before: "/manus-storage/caso-03-antes_20711ff0.jpeg", after: "/manus-storage/caso-03-depois_47536166.jpeg" },
+  { before: "/manus-storage/caso-04-antes_bf992e05.jpeg", after: "/manus-storage/caso-04-depois_be9307c3.jpeg" },
 ];
 
 const messageSuggestions: Record<string, string> = {

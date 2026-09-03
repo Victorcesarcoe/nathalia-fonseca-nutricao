@@ -60,3 +60,11 @@
 - [x] Actualizar a referência da imagem principal do hero.
 - [x] Validar enquadramento, contraste e responsividade.
 - [x] Criar checkpoint da atualização.
+
+## Nova galeria Antes e Depois
+
+- [x] Catalogar as nove fotografias recebidas e identificar os pares antes/depois.
+- [x] Alojar os novos assets fora do directório do projecto.
+- [x] Actualizar os quatro casos exibidos na galeria.
+- [x] Ajustar o comparador para preservar a fotografia completa, sem crop agressivo.
+- [x] Validar desktop/mobile e criar checkpoint.
