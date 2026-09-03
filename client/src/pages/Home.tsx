@@ -20,7 +20,7 @@ import {
   X,
 } from "lucide-react";
 
-const heroImage = "/manus-storage/nathalia-hero-portrait_ba4799ec.jpg";
+const heroImage = "/manus-storage/foto1_e92b2a25.jpeg";
 const trainingImage = "/manus-storage/nathalia-training-portrait_e68cad58.jpg";
 const textureImage = "/manus-storage/nathalia-organic-texture_d4614687.png";
 const markImage = "/manus-storage/nathalia-mark_9ea8669e.png";
@@ -155,7 +155,7 @@ function Hero() {
           <div className="hero-note"><span className="hero-note-dot" /> Atendimento online e presencial</div>
         </div>
         <div className="hero-visual reveal reveal-delay-2">
-          <div className="hero-photo-wrap"><img className="hero-photo" src={heroImage} alt="Nathália Fonseca em retrato editorial" /></div>
+          <div className="hero-photo-wrap"><img className="hero-photo" src={heroImage} alt="Nathália Fonseca com um smoothie verde e um computador portátil" /></div>
           <div className="hero-orbit" aria-hidden="true" />
           <div className="hero-stat"><strong>26,6 mil</strong><span>seguidores no Instagram · conteúdo sobre nutrição, saúde e performance</span></div>
           <span className="hero-side-label">Estratégia para a vida real</span>

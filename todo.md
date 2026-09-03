@@ -53,3 +53,10 @@
 - [x] Verificar se existe um asset local fornecido para substituir a imagem.
 - [x] Não guardar caminho file:/// local na aplicação publicada.
 - [x] Validar a aplicação e criar checkpoint apenas após resolver a referência.
+
+## Substituição da fotografia hero
+
+- [x] Copiar e alojar a foto1.jpeg fornecida.
+- [x] Actualizar a referência da imagem principal do hero.
+- [x] Validar enquadramento, contraste e responsividade.
+- [x] Criar checkpoint da atualização.
