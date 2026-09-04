@@ -340,10 +340,10 @@ function InstagramSection() {
           <div className="post-grid" aria-label="Conteúdos visuais da Nathália no Instagram">
             <a className="post-tile" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_01" })}><img src="/manus-storage/nathalia-instagram-01_10eed84c.jpeg" alt="Arte editorial sobre nutrição esportiva, performance e consulta" /></a>
             <a className="post-tile" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_02" })}><img src="/manus-storage/nathalia-instagram-02_e96e38d5.jpeg" alt="Arte editorial sobre avaliação, plano alimentar e acompanhamento" /></a>
-            <div className="post-tile"><div className="post-placeholder"><span>Posts reais a inserir</span></div></div>
-            <div className="post-tile"><div className="post-placeholder"><span>Conteúdo da Nathália</span></div></div>
+            <a className="post-tile" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_03" })}><img src="/manus-storage/nathalia-instagram-03_24241918.jpeg" alt="Nathália Fonseca a treinar num equipamento de musculação" /></a>
+            <a className="post-tile" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_04" })}><img src="/manus-storage/nathalia-instagram-04_7eb8fa60.jpeg" alt="Nathália Fonseca a realizar um exercício de força no ginásio" /></a>
           </div>
-          <a className="section-cta instagram-gallery-cta" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_follow" })}>Seguir no Instagram <ArrowRight size={15} /></a>
+          <a className="section-cta instagram-gallery-cta instagram-gallery-cta-pulse" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_follow" })}>Seguir no Instagram <ArrowRight size={15} /></a>
         </div>
       </div>
     </section>

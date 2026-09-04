@@ -97,3 +97,11 @@
 - [x] Adicionar hover suave e recorte seguro à foto da secção Sobre.
 - [x] Incluir botão “Seguir no Instagram” abaixo da galeria.
 - [x] Validar desktop/mobile e criar checkpoint.
+
+## Fotografias de treino e pulso social
+
+- [x] Alojar as duas novas fotografias de treino.
+- [x] Substituir os dois placeholders restantes da galeria Instagram.
+- [x] Adicionar pulso suave ao botão “Seguir no Instagram”.
+- [x] Respeitar prefers-reduced-motion e validar desktop/mobile.
+- [x] Criar checkpoint da atualização.
