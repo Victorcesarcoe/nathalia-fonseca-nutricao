@@ -68,3 +68,10 @@
 - [x] Actualizar os quatro casos exibidos na galeria.
 - [x] Ajustar o comparador para preservar a fotografia completa, sem crop agressivo.
 - [x] Validar desktop/mobile e criar checkpoint.
+
+## Substituição da foto do caso 4
+
+- [x] Alojar a foto6.jpeg como asset web.
+- [x] Substituir a fotografia actual do caso 4.
+- [x] Validar o enquadramento completo em desktop e mobile.
+- [x] Criar checkpoint da atualização.
