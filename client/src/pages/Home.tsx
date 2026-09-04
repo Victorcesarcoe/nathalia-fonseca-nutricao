@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 
 const heroImage = "/manus-storage/foto1_e92b2a25.jpeg";
-const trainingImage = "/manus-storage/nathalia-training-portrait_e68cad58.jpg";
+const trainingImage = "/manus-storage/caso-04-depois-foto6_ae94e340.jpeg";
 const textureImage = "/manus-storage/nathalia-organic-texture_d4614687.png";
 const markImage = "/manus-storage/nathalia-mark_9ea8669e.png";
 const instagramUrl = "https://www.instagram.com/nathfonsecanutri/";
@@ -217,7 +217,7 @@ function About() {
           <div className="about-roles"><span className="role-pill">Nutricionista</span><span className="role-divider">×</span><span className="role-pill">Personal Trainer</span></div>
           <p className="about-statement">Alimentação, movimento e estratégia trabalhando juntos.</p>
         </div>
-        <div className="about-photo-frame reveal reveal-delay-2"><img className="about-photo" src={trainingImage} alt="Nathália Fonseca num estúdio de treino" /></div>
+        <div className="about-photo-frame reveal reveal-delay-2"><img className="about-photo" src={trainingImage} alt="Nathália Fonseca com um smoothie de beterraba e uma refeição equilibrada" /></div>
       </div>
     </section>
   );

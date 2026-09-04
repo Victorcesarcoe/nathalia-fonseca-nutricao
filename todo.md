@@ -75,3 +75,17 @@
 - [x] Substituir a fotografia actual do caso 4.
 - [x] Validar o enquadramento completo em desktop e mobile.
 - [x] Criar checkpoint da atualização.
+
+## Verificação de edições de imagem
+
+- [ ] Confirmar as referências actuais dos três elementos no Home.tsx.
+- [ ] Verificar se os assets pedidos existem no ambiente.
+- [ ] Manter apenas referências /manus-storage válidas.
+- [ ] Validar a página e criar checkpoint.
+
+## Verificação da edição visual recente
+
+- [x] Aplicar a foto6 já alojada na imagem da secção Sobre.
+- [x] Confirmar os dois assets de Instagram adicionais, ainda não presentes no upload.
+- [x] Validar a página sem guardar caminhos file:/// locais.
+- [x] Criar checkpoint da resolução parcial.
