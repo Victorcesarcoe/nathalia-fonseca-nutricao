@@ -112,3 +112,10 @@
 - [x] Remover qualquer texto inconsistente ou não autorizado.
 - [x] Manter placeholders até existirem depoimentos reais confirmados.
 - [x] Validar build e criar checkpoint.
+
+## Depoimentos reais e fade-in
+
+- [x] Receber texto, nome/identificador e autorização dos três depoimentos.
+- [x] Substituir os placeholders nos três cartões.
+- [x] Validar fade-in ao scroll e prefers-reduced-motion.
+- [x] Criar checkpoint da atualização.

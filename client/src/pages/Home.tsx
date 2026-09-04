@@ -319,12 +319,18 @@ function Evolution() {
 }
 
 function Testimonials() {
+  const testimonials = [
+    { name: "Vivianne", quote: "Obrigadaaaaa mais uma vez. Não teria como ter escolhido nutri melhor para começar esse processo. Bracinhos e abdômen definidos. E animada para evoluir ainda mais 💪🏻", tag: "Depoimento" },
+    { name: "Eduarda Lanzi", quote: "Nath, queria te agradecer. Você é muuuuuito boa, nem imagina o quanto. Eu tô me adaptando de uma forma bizarra à dieta e sem muitos esforços.", tag: "Depoimento" },
+    { name: "Aline Silvares", quote: "Menina, treinar contigo realmente funciona. Minhas pernas estão lindas. Estou ficando insuportável kkkk", tag: "Depoimento" },
+  ];
+
   return (
     <section className="testimonials" aria-labelledby="testimonials-title">
       <div className="container-editorial">
-        <div className="testimonials-top reveal"><div><div className="eyebrow">Histórias reais</div><h2 id="testimonials-title" className="display">A sua jornada pode ser a próxima.</h2></div><p className="testimonial-note">Espaço preparado para depoimentos reais, adicionados com autorização.</p></div>
+        <div className="testimonials-top reveal"><div><div className="eyebrow">Histórias reais</div><h2 id="testimonials-title" className="display">A sua jornada pode ser a próxima.</h2></div><p className="testimonial-note">Experiências partilhadas por clientes da Nathália.</p></div>
         <div className="testimonial-grid">
-          {["Depoimento real a inserir", "Resultado autorizado a inserir", "História real a inserir"].map((label, index) => <article className="testimonial-placeholder reveal" key={label}><div className="placeholder-top"><span className="placeholder-avatar" aria-hidden="true" /><span className="placeholder-tag">{index === 1 ? "Resultado" : "Depoimento"}</span></div><p className="placeholder-copy">{label}</p><span className="placeholder-foot">Conteúdo reservado para material fornecido pela profissional.</span></article>)}
+          {testimonials.map((testimonial, index) => <article className={`testimonial-placeholder reveal reveal-delay-${index + 1}`} key={testimonial.name}><div className="placeholder-top"><span className="placeholder-avatar" aria-hidden="true" /><span className="placeholder-tag">{testimonial.tag}</span></div><p className="placeholder-copy">“{testimonial.quote}”</p><span className="placeholder-foot">— {testimonial.name}</span></article>)}
         </div>
       </div>
     </section>
