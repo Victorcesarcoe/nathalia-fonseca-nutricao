@@ -217,7 +217,7 @@ function About() {
           <div className="about-roles"><span className="role-pill">Nutricionista</span><span className="role-divider">×</span><span className="role-pill">Personal Trainer</span></div>
           <p className="about-statement">Alimentação, movimento e estratégia trabalhando juntos.</p>
         </div>
-        <div className="about-photo-frame reveal reveal-delay-2"><img className="about-photo" src={trainingImage} alt="Nathália Fonseca com um smoothie de beterraba e uma refeição equilibrada" /></div>
+        <div className="about-photo-frame reveal reveal-delay-2"><div className="about-photo-clip"><img className="about-photo" src={trainingImage} alt="Nathália Fonseca com um smoothie de beterraba e uma refeição equilibrada" /></div></div>
       </div>
     </section>
   );
@@ -336,11 +336,14 @@ function InstagramSection() {
     <section className="instagram" aria-labelledby="instagram-title">
       <div className="container-editorial instagram-grid">
         <div className="instagram-copy reveal"><div className="eyebrow">Acompanhe mais conteúdos</div><h2 id="instagram-title" className="display">Nutrição para a vida real.</h2><p>Conteúdos sobre alimentação, treino, saúde, emagrecimento e performance também no Instagram.</p><a className="instagram-handle" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_handle" })}><Instagram /> @nathfonsecanutri · 26,6 mil seguidores</a><div><a className="section-cta instagram-cta" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_follow" })}>Seguir no Instagram <ArrowRight size={15} /></a></div></div>
-        <div className="post-grid reveal reveal-delay-2" aria-label="Espaço reservado para posts do Instagram">
-          <div className="post-tile"><img src={trainingImage} alt="" /></div>
-          <div className="post-tile"><img src={textureImage} alt="" /></div>
-          <div className="post-tile"><div className="post-placeholder"><span>Posts reais a inserir</span></div></div>
-          <div className="post-tile"><div className="post-placeholder"><span>Conteúdo da Nathália</span></div></div>
+        <div className="instagram-visual-column reveal reveal-delay-2">
+          <div className="post-grid" aria-label="Conteúdos visuais da Nathália no Instagram">
+            <a className="post-tile" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_01" })}><img src="/manus-storage/nathalia-instagram-01_10eed84c.jpeg" alt="Arte editorial sobre nutrição esportiva, performance e consulta" /></a>
+            <a className="post-tile" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_02" })}><img src="/manus-storage/nathalia-instagram-02_e96e38d5.jpeg" alt="Arte editorial sobre avaliação, plano alimentar e acompanhamento" /></a>
+            <div className="post-tile"><div className="post-placeholder"><span>Posts reais a inserir</span></div></div>
+            <div className="post-tile"><div className="post-placeholder"><span>Conteúdo da Nathália</span></div></div>
+          </div>
+          <a className="section-cta instagram-gallery-cta" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_follow" })}>Seguir no Instagram <ArrowRight size={15} /></a>
         </div>
       </div>
     </section>

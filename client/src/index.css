@@ -178,7 +178,9 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--champagne); out
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(50px, 10vw, 140px); align-items: center; position: relative; z-index: 1; }
 .about-photo-frame { width: min(100%, 430px); margin-left: auto; position: relative; }
 .about-photo-frame::before { content: ''; position: absolute; inset: -18px 20px 20px -18px; border: 1px solid rgba(201,166,107,0.7); z-index: -1; }
-.about-photo { display: block; width: 100%; aspect-ratio: 0.8; object-fit: cover; object-position: center; filter: saturate(0.82); }
+.about-photo-clip { overflow: hidden; }
+.about-photo { display: block; width: 100%; aspect-ratio: 0.8; object-fit: cover; object-position: center; filter: saturate(0.82); transition: transform 500ms var(--ease-out), filter 500ms var(--ease-out); }
+.about-photo-frame:hover .about-photo { transform: scale(1.035); filter: saturate(1); }
 .about-copy h2 { color: var(--ivory); max-width: 640px; }
 .about-copy p { max-width: 485px; margin: 27px 0 0; color: rgba(251, 249, 243, 0.68); font-size: 0.92rem; line-height: 1.9; }
 .about-roles { display: flex; align-items: center; flex-wrap: wrap; gap: 11px; margin-top: 34px; }
@@ -257,7 +259,9 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--champagne); out
 .instagram-handle svg { width: 17px; height: 17px; color: var(--champagne); }
 .instagram-cta { margin-top: 34px; }
 .post-grid { display: grid; grid-template-columns: 1.1fr 0.9fr 0.9fr; grid-template-rows: 145px 145px; gap: 10px; }
-.post-tile { position: relative; overflow: hidden; background: var(--olive); }
+.instagram-visual-column { display: flex; flex-direction: column; align-items: flex-start; }
+.instagram-gallery-cta { margin-top: 26px; }
+.post-tile { position: relative; display: block; overflow: hidden; background: var(--olive); text-decoration: none; }
 .post-tile:first-child { grid-row: span 2; }
 .post-tile img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.75); transition: transform 500ms var(--ease-out), filter 500ms var(--ease-out); }
 .post-tile:hover img { transform: scale(1.05); filter: saturate(1); }

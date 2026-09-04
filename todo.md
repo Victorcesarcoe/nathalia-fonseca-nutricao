@@ -89,3 +89,11 @@
 - [x] Confirmar os dois assets de Instagram adicionais, ainda não presentes no upload.
 - [x] Validar a página sem guardar caminhos file:/// locais.
 - [x] Criar checkpoint da resolução parcial.
+
+## Galeria Instagram e CTA social
+
+- [x] Alojar as duas novas imagens da galeria Instagram.
+- [x] Substituir os dois placeholders visuais pelos assets recebidos.
+- [x] Adicionar hover suave e recorte seguro à foto da secção Sobre.
+- [x] Incluir botão “Seguir no Instagram” abaixo da galeria.
+- [x] Validar desktop/mobile e criar checkpoint.
