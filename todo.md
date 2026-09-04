@@ -105,3 +105,10 @@
 - [x] Adicionar pulso suave ao botão “Seguir no Instagram”.
 - [x] Respeitar prefers-reduced-motion e validar desktop/mobile.
 - [x] Criar checkpoint da atualização.
+
+## Revisão dos depoimentos
+
+- [x] Inspeccionar o conteúdo actualmente renderizado nos três cartões.
+- [x] Remover qualquer texto inconsistente ou não autorizado.
+- [x] Manter placeholders até existirem depoimentos reais confirmados.
+- [x] Validar build e criar checkpoint.
