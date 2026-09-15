@@ -33,7 +33,6 @@ const evolutionCases = [
   { before: "/manus-storage/caso-01-antes_8bd949ef.jpeg", after: "/manus-storage/caso-01-depois_f2d90a9c.jpeg" },
   { before: "/manus-storage/caso-02-antes_48d2fd26.jpeg", after: "/manus-storage/caso-02-depois_227ef7fa.jpeg" },
   { before: "/manus-storage/caso-03-antes_20711ff0.jpeg", after: "/manus-storage/caso-03-depois_47536166.jpeg" },
-  { before: "/manus-storage/caso-04-antes_bf992e05.jpeg", after: "/manus-storage/caso-04-depois-foto6_ae94e340.jpeg" },
 ];
 
 const messageSuggestions: Record<string, string> = {
