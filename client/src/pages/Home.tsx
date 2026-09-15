@@ -216,7 +216,7 @@ function About() {
           <div className="about-roles"><span className="role-pill">Nutricionista</span><span className="role-divider">×</span><span className="role-pill">Personal Trainer</span></div>
           <p className="about-statement">Alimentação, movimento e estratégia trabalhando juntos.</p>
         </div>
-        <div className="about-photo-frame reveal reveal-delay-2"><div className="about-photo-clip"><img className="about-photo" src={trainingImage} alt="Nathália Fonseca com um smoothie de beterraba e uma refeição equilibrada" /></div></div>
+        <div className="about-photo-frame reveal reveal-delay-2"><div className="about-photo-clip"><img className="about-photo" src={trainingImage} alt="Nathália Fonseca com um smoothie de beterraba e uma refeição equilibrada" loading="lazy" /></div></div>
       </div>
     </section>
   );
@@ -301,8 +301,8 @@ function Evolution() {
           <div className="evolution-case-meta"><span className="case-counter">0{activeCase + 1} <i>/ 0{evolutionCases.length}</i></span><span className="case-caption">Imagens fornecidas para apresentação de evolução · confirmar autorização antes de publicar</span></div>
           <div className="comparison-shell">
             <div ref={comparisonRef} className={`comparison ${isDemoActive ? "is-demo-active" : ""}`} onPointerDown={(event) => { stopDemo(); event.currentTarget.setPointerCapture(event.pointerId); updatePosition(event.clientX, event.currentTarget); }} onPointerMove={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) updatePosition(event.clientX, event.currentTarget); }} onPointerUp={(event) => event.currentTarget.releasePointerCapture(event.pointerId)} onPointerCancel={(event) => event.currentTarget.releasePointerCapture(event.pointerId)}>
-              <img className="comparison-image comparison-after" src={currentCase.after} alt={`Evolução do caso ${activeCase + 1}, depois`} />
-              <img className="comparison-image comparison-before-image" src={currentCase.before} style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }} alt={`Evolução do caso ${activeCase + 1}, antes`} />
+              <img className="comparison-image comparison-after" src={currentCase.after} alt={`Evolução do caso ${activeCase + 1}, depois`} loading="lazy" />
+              <img className="comparison-image comparison-before-image" src={currentCase.before} style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }} alt={`Evolução do caso ${activeCase + 1}, antes`} loading="lazy" />
               <span className="comparison-label comparison-label-before">Antes</span><span className="comparison-label comparison-label-after">Depois</span>
               <div className="comparison-divider" style={{ left: `${position}%` }} aria-hidden="true"><span className="comparison-handle"><ArrowLeft size={13} /><ArrowRight size={13} /></span></div>
               <input className="comparison-range" type="range" min="0" max="100" value={position} aria-label="Arraste para comparar antes e depois" onPointerDown={stopDemo} onChange={(event) => { stopDemo(); setPosition(Number(event.target.value)); setHasInteracted(true); }} />
@@ -343,12 +343,12 @@ function InstagramSection() {
         <div className="instagram-copy reveal"><div className="eyebrow">Acompanhe mais conteúdos</div><h2 id="instagram-title" className="display">Nutrição para a vida real.</h2><p>Conteúdos sobre alimentação, treino, saúde, emagrecimento e performance também no Instagram.</p><a className="instagram-handle" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_handle" })}><Instagram /> @nathfonsecanutri · 26,6 mil seguidores</a><div><a className="section-cta instagram-cta" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_follow" })}>Seguir no Instagram <ArrowRight size={15} /></a></div></div>
         <div className="instagram-visual-column reveal reveal-delay-2">
           <div className="post-grid" aria-label="Conteúdos visuais da Nathália no Instagram">
-            <a className="post-tile" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_01" })}><img src="/manus-storage/nathalia-instagram-01_10eed84c.jpeg" alt="Arte editorial sobre nutrição esportiva, performance e consulta" /></a>
-            <a className="post-tile" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_02" })}><img src="/manus-storage/nathalia-instagram-02_e96e38d5.jpeg" alt="Arte editorial sobre avaliação, plano alimentar e acompanhamento" /></a>
-            <a className="post-tile" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_03" })}><img src="/manus-storage/nathalia-instagram-03_24241918.jpeg" alt="Nathália Fonseca a treinar num equipamento de musculação" /></a>
-            <a className="post-tile" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_04" })}><img src="/manus-storage/nathalia-instagram-04_7eb8fa60.jpeg" alt="Nathália Fonseca a realizar um exercício de força no ginásio" /></a>
+            <a className="post-tile" href={instagramUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_01" })}><img src="/manus-storage/nathalia-instagram-01_10eed84c.jpeg" alt="Arte editorial sobre nutrição esportiva, performance e consulta" loading="lazy" /></a>
+            <a className="post-tile" href={instagramUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_02" })}><img src="/manus-storage/nathalia-instagram-02_e96e38d5.jpeg" alt="Arte editorial sobre avaliação, plano alimentar e acompanhamento" loading="lazy" /></a>
+            <a className="post-tile" href={instagramUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_03" })}><img src="/manus-storage/nathalia-instagram-03_24241918.jpeg" alt="Nathália Fonseca a treinar num equipamento de musculação" loading="lazy" /></a>
+            <a className="post-tile" href={instagramUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_04" })}><img src="/manus-storage/nathalia-instagram-04_7eb8fa60.jpeg" alt="Nathália Fonseca a realizar um exercício de força no ginásio" loading="lazy" /></a>
           </div>
-          <a className="section-cta instagram-gallery-cta instagram-gallery-cta-pulse" href={instagramUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_follow" })}>Seguir no Instagram <ArrowRight size={15} /></a>
+          <a className="section-cta instagram-gallery-cta instagram-gallery-cta-pulse" href={instagramUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent("cta_click", { cta: "instagram_gallery_follow" })}>Seguir no Instagram <ArrowRight size={15} /></a>
         </div>
       </div>
     </section>
