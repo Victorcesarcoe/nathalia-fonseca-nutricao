@@ -230,10 +230,10 @@ function Differential() {
 /* 04 · Objetivos */
 function Goals() {
   const goals = [
-    { label: "Emagrecimento", title: "Perder gordura preservando massa muscular", copy: "Estratégias nutricionais direcionadas à redução de gordura e melhora da composição corporal.", cta: "Quero emagrecer", image: "/images/objetivo-emagrecimento.jpg", alt: "Mulher medindo a cintura com fita métrica", message: messageSuggestions["Emagrecimento"] },
-    { label: "Hipertrofia", title: "Ganhar massa muscular", copy: "Nutrição alinhada ao treino para favorecer construção muscular e evolução corporal.", cta: "Quero ganhar massa", image: "/images/objetivo-hipertrofia.jpg", alt: "Braço levantando um haltere na academia", message: messageSuggestions["Hipertrofia"] },
-    { label: "Definição", title: "Menos gordura. Mais definição.", copy: "Estratégias para melhorar a composição corporal e evidenciar os resultados construídos no treinamento.", cta: "Quero melhorar minha definição", image: "/images/objetivo-definicao.jpg", alt: "Abdômen definido em roupa de treino", message: messageSuggestions["Definição"] },
-    { label: "Performance", title: "Treinar e render melhor", copy: "Nutrição esportiva direcionada a energia, recuperação e desempenho.", cta: "Quero melhorar minha performance", image: "/images/objetivo-performance.jpg", alt: "Pernas de corredora em uma pista ao pôr do sol", message: messageSuggestions["Performance"] },
+    { label: "Emagrecimento", title: "Perder gordura preservando massa muscular", copy: "Estratégias nutricionais direcionadas à redução de gordura e melhora da composição corporal.", cta: "Quero emagrecer", image: "/objetivo-emagrecimento.jpg", alt: "Mulher medindo a cintura com fita métrica", message: messageSuggestions["Emagrecimento"] },
+    { label: "Hipertrofia", title: "Ganhar massa muscular", copy: "Nutrição alinhada ao treino para favorecer construção muscular e evolução corporal.", cta: "Quero ganhar massa", image: "/objetivo-hipertrofia.jpg", alt: "Braço levantando um haltere na academia", message: messageSuggestions["Hipertrofia"] },
+    { label: "Definição", title: "Menos gordura. Mais definição.", copy: "Estratégias para melhorar a composição corporal e evidenciar os resultados construídos no treinamento.", cta: "Quero melhorar minha definição", image: "/objetivo-definicao.jpg", alt: "Abdômen definido em roupa de treino", message: messageSuggestions["Definição"] },
+    { label: "Performance", title: "Treinar e render melhor", copy: "Nutrição esportiva direcionada a energia, recuperação e desempenho.", cta: "Quero melhorar minha performance", image: "/objetivo-performance.jpg", alt: "Pernas de corredora em uma pista ao pôr do sol", message: messageSuggestions["Performance"] },
   ];
   return (
     <section id="objetivos" className="goals" aria-labelledby="goals-title">
@@ -319,8 +319,8 @@ function Process() {
 /* 07 · Online x presencial */
 function Modalities() {
   const options = [
-    { kind: "Consulta online", title: "Acompanhamento onde você estiver.", items: ["Consulta por videochamada", "Estratégia individualizada", "Plano alimentar personalizado"], cta: "Agendar consulta online", icon: Monitor, image: "/images/consulta-online.jpg", alt: "Consulta de nutrição por videochamada em um notebook", message: messageSuggestions["Consulta online"] },
-    { kind: "Consulta presencial", title: "Atendimento presencial no Rio de Janeiro.", items: ["Consulta presencial", "Estratégia individualizada", "Endereço informado no agendamento"], cta: "Agendar consulta presencial", icon: MapPin, image: "/images/consulta-presencial.jpg", alt: "Consultório de nutrição com mesa, cadeiras e plantas", message: messageSuggestions["Consulta presencial"] },
+    { kind: "Consulta online", title: "Acompanhamento onde você estiver.", items: ["Consulta por videochamada", "Estratégia individualizada", "Plano alimentar personalizado"], cta: "Agendar consulta online", icon: Monitor, image: "/consulta-online.jpg", alt: "Consulta de nutrição por videochamada em um notebook", message: messageSuggestions["Consulta online"] },
+    { kind: "Consulta presencial", title: "Atendimento presencial no Rio de Janeiro.", items: ["Consulta presencial", "Estratégia individualizada", "Endereço informado no agendamento"], cta: "Agendar consulta presencial", icon: MapPin, image: "/consulta-presencial.jpg", alt: "Consultório de nutrição com mesa, cadeiras e plantas", message: messageSuggestions["Consulta presencial"] },
   ];
   return (
     <section id="modalidades" className="modalities" aria-labelledby="modalities-title">
